@@ -4,7 +4,7 @@ import './App.css';
 
 // Import your components
 import Navbar from './components/Navbar/Navbar';
-import Landing_Page from './components/Landing_Page/LandingPage';
+import Landing_Page from './components/Landing_Page/Landing_Page';
 
 function App() {
   return (
