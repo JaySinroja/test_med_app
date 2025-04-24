@@ -1,3 +1,4 @@
+// src/components/Sign_Up/Sign_Up.js
 import React, { useState } from 'react';
 import './Sign_Up.css';
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,50 +15,45 @@ const Sign_Up = () => {
   const register = async (e) => {
     e.preventDefault();
 
-    const validationErrors = [];
+    const localErrors = [];
 
     if (!name || !email || !phone || !password) {
-      validationErrors.push('All fields are required.');
+      localErrors.push({ msg: 'All fields are required' });
     }
 
     if (!/^\d{10}$/.test(phone)) {
-      validationErrors.push('Phone number must be exactly 10 digits.');
+      localErrors.push({ msg: 'Phone number must be exactly 10 digits' });
     }
 
-    if (validationErrors.length > 0) {
-      setErrors(validationErrors);
+    if (localErrors.length > 0) {
+      setErrors(localErrors);
       return;
     }
 
     try {
       const response = await fetch(`${API_URL}/api/auth/register`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ name, email, phone, password }),
       });
 
       const json = await response.json();
 
-      if (json.authtoken) {
-        sessionStorage.setItem('auth-token', json.authtoken);
-        sessionStorage.setItem('name', name);
-        sessionStorage.setItem('phone', phone);
-        sessionStorage.setItem('email', email);
-        navigate('/');
+      if (response.ok && json.authtoken) {
+        sessionStorage.setItem("auth-token", json.authtoken);
+        sessionStorage.setItem("name", name);
+        sessionStorage.setItem("phone", phone);
+        sessionStorage.setItem("email", email);
+
+        navigate("/");
         window.location.reload();
-      } else if (Array.isArray(json.errors)) {
-        // Ensure we only store string messages
-        const msgArray = json.errors.map((err) => typeof err === 'object' && err.msg ? err.msg : JSON.stringify(err));
-        setErrors(msgArray);
-      } else if (json.error) {
-        setErrors([json.error]);
       } else {
-        setErrors(['An unknown error occurred.']);
+        setErrors(json.errors || [{ msg: json.error || "Registration failed" }]);
       }
-    } catch (err) {
-      setErrors(['Failed to connect to the server.']);
+    } catch (error) {
+      setErrors([{ msg: "Something went wrong. Please try again later." }]);
     }
   };
 
@@ -120,8 +116,8 @@ const Sign_Up = () => {
             {errors.length > 0 && (
               <div className="err" style={{ color: 'red', marginTop: '10px' }}>
                 <ul>
-                  {errors.map((err, index) => (
-                    <li key={index}>{err}</li>
+                  {errors.map((err, idx) => (
+                    <li key={idx}>{err.msg}</li>
                   ))}
                 </ul>
               </div>
