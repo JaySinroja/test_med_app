@@ -44,7 +44,7 @@ function Navbar() {
 
         {isLoggedIn ? (
           <>
-            <li className="link" style={{ color: 'white', marginRight: '10px' }}>
+            <li className="link" style={{ color: 'Black', marginRight: '10px' }}>
               Hi, {username}
             </li>
             <li className="link">
