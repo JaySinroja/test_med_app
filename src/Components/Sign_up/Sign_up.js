@@ -8,11 +8,12 @@ const Sign_Up = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState([]); // array of strings
+  const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
   const register = async (e) => {
     e.preventDefault();
+
     const validationErrors = [];
 
     if (!name || !email || !phone || !password) {
@@ -44,19 +45,19 @@ const Sign_Up = () => {
         sessionStorage.setItem('name', name);
         sessionStorage.setItem('phone', phone);
         sessionStorage.setItem('email', email);
-
         navigate('/');
         window.location.reload();
-      } else if (json.errors) {
-        const backendErrors = json.errors.map((err) => err.msg);
-        setErrors(backendErrors);
+      } else if (Array.isArray(json.errors)) {
+        // Ensure we only store string messages
+        const msgArray = json.errors.map((err) => typeof err === 'object' && err.msg ? err.msg : JSON.stringify(err));
+        setErrors(msgArray);
       } else if (json.error) {
         setErrors([json.error]);
       } else {
-        setErrors(['Unknown error occurred.']);
+        setErrors(['An unknown error occurred.']);
       }
     } catch (err) {
-      setErrors(['Failed to connect to server.']);
+      setErrors(['Failed to connect to the server.']);
     }
   };
 
