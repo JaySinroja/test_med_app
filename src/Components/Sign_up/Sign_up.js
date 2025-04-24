@@ -1,4 +1,3 @@
-// src/components/Sign_Up/Sign_Up.js
 import React, { useState } from 'react';
 import './Sign_Up.css';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,7 +8,7 @@ const Sign_Up = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState([]); // array of strings
   const navigate = useNavigate();
 
   const register = async (e) => {
@@ -17,11 +16,11 @@ const Sign_Up = () => {
     const validationErrors = [];
 
     if (!name || !email || !phone || !password) {
-      validationErrors.push('All fields are required');
+      validationErrors.push('All fields are required.');
     }
 
     if (!/^\d{10}$/.test(phone)) {
-      validationErrors.push('Phone number must be exactly 10 digits');
+      validationErrors.push('Phone number must be exactly 10 digits.');
     }
 
     if (validationErrors.length > 0) {
@@ -31,9 +30,9 @@ const Sign_Up = () => {
 
     try {
       const response = await fetch(`${API_URL}/api/auth/register`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ name, email, phone, password }),
       });
@@ -41,22 +40,23 @@ const Sign_Up = () => {
       const json = await response.json();
 
       if (json.authtoken) {
-        sessionStorage.setItem("auth-token", json.authtoken);
-        sessionStorage.setItem("name", name);
-        sessionStorage.setItem("phone", phone);
-        sessionStorage.setItem("email", email);
+        sessionStorage.setItem('auth-token', json.authtoken);
+        sessionStorage.setItem('name', name);
+        sessionStorage.setItem('phone', phone);
+        sessionStorage.setItem('email', email);
 
-        navigate("/");
+        navigate('/');
         window.location.reload();
       } else if (json.errors) {
-        // Validation errors from backend (array of objects)
-        const backendErrors = json.errors.map(err => err.msg);
+        const backendErrors = json.errors.map((err) => err.msg);
         setErrors(backendErrors);
       } else if (json.error) {
         setErrors([json.error]);
+      } else {
+        setErrors(['Unknown error occurred.']);
       }
     } catch (err) {
-      setErrors(["Something went wrong. Please try again later."]);
+      setErrors(['Failed to connect to server.']);
     }
   };
 
