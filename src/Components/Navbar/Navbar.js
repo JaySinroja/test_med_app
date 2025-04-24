@@ -4,9 +4,14 @@ import './Navbar.css';
 
 function Navbar() {
   const [isMenuActive, setMenuActive] = useState(false);
+  const handleClick = () => setMenuActive(!isMenuActive);
 
-  const handleClick = () => {
-    setMenuActive(!isMenuActive);
+  const isLoggedIn = !!sessionStorage.getItem("auth-token");
+  const username = sessionStorage.getItem("email")?.split("@")[0];
+
+  const logout = () => {
+    sessionStorage.clear();
+    window.location.href = "/";
   };
 
   return (
@@ -19,7 +24,6 @@ function Navbar() {
             <g>
               <path d="M499.8,10c91.7,0,166,74.3,166,166c0,91.7-74.3,166-166,166c-91.7,0-166-74.3-166-166C333.8,84.3,408.1,10,499.8,10z"></path>
               <path d="M499.8,522.8c71.2,0,129.1-58.7,129.1-129.1H370.6C370.6,464.1,428.6,522.8,499.8,522.8z"></path>
-              <path d="..."></path>
             </g>
           </svg>
         </Link>
@@ -37,16 +41,30 @@ function Navbar() {
         <li className="link">
           <Link to="/appointments">Appointments</Link>
         </li>
-        <li className="link">
-          <Link to="/signup">
-            <button className="btn1">Sign Up</button>
-          </Link>
-        </li>
-        <li className="link">
-          <Link to="/login">
-            <button className="btn1">Login</button>
-          </Link>
-        </li>
+
+        {isLoggedIn ? (
+          <>
+            <li className="link" style={{ color: 'white', marginRight: '10px' }}>
+              Hi, {username}
+            </li>
+            <li className="link">
+              <button className="btn1" onClick={logout}>Logout</button>
+            </li>
+          </>
+        ) : (
+          <>
+            <li className="link">
+              <Link to="/signup">
+                <button className="btn1">Sign Up</button>
+              </Link>
+            </li>
+            <li className="link">
+              <Link to="/login">
+                <button className="btn1">Login</button>
+              </Link>
+            </li>
+          </>
+        )}
       </ul>
     </nav>
   );
