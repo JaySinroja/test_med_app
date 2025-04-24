@@ -26,7 +26,6 @@ const Login = () => {
         sessionStorage.setItem('auth-token', json.authtoken);
         sessionStorage.setItem('email', email);
         sessionStorage.setItem('name', email.split('@')[0]);
-
         navigate('/');
         window.location.reload(); // refresh to update Navbar
       } else {
@@ -39,9 +38,10 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <form onSubmit={handleLogin}>
+      <form className="login-form" onSubmit={handleLogin}>
         <h2>Login</h2>
         <input
+          className="form-control"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -49,16 +49,17 @@ const Login = () => {
           required
         />
         <input
+          className="form-control"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
           required
         />
-        <button type="submit">Login</button>
+        <button className="btn btn-primary" type="submit">Login</button>
 
         {errors.length > 0 && (
-          <ul style={{ color: 'red' }}>
+          <ul className="error-messages">
             {errors.map((err, idx) => (
               <li key={idx}>{err.msg}</li>
             ))}
