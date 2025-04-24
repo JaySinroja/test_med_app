@@ -5,7 +5,7 @@ import './App.css';
 // Import your components
 import Navbar from './components/Navbar/Navbar';
 import Landing_Page from './components/Landing_Page/Landing_Page';
-import Sign_Up from './components/Sign_Up/Sign_Up';
+import Sign_Up from './components/Sign_up/Sign_Up';
 import Login from './components/Login/Login';
 
 <Routes>
