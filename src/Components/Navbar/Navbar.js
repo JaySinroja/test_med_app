@@ -1,3 +1,5 @@
+// src/components/Navbar/Navbar.js
+
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import './Navbar.css';
@@ -7,7 +9,8 @@ function Navbar() {
   const handleClick = () => setMenuActive(!isMenuActive);
 
   const isLoggedIn = !!sessionStorage.getItem("auth-token");
-  const username = sessionStorage.getItem("email")?.split("@")[0];
+  const email = sessionStorage.getItem("email");
+  const username = email ? email.split("@")[0] : "";
 
   const logout = () => {
     sessionStorage.clear();
@@ -44,7 +47,7 @@ function Navbar() {
 
         {isLoggedIn ? (
           <>
-            <li className="link" style={{ color: 'Black', marginRight: '10px' }}>
+            <li className="link user-greeting">
               Hi, {username}
             </li>
             <li className="link">

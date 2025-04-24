@@ -1,58 +1,70 @@
+// src/components/Login/Login.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import { API_URL } from '../../config';
 
-function Login() {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
 
-  const validate = () => {
-    let tempErrors = {};
-    if (!email) tempErrors.email = "Email is required";
-    if (!password) tempErrors.password = "Password is required";
-    setErrors(tempErrors);
-    return Object.keys(tempErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      alert("Login successful!");
-      // Implement login logic
+
+    try {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const json = await response.json();
+
+      if (response.ok && json.authtoken) {
+        sessionStorage.setItem("auth-token", json.authtoken);
+        sessionStorage.setItem("email", email);
+        sessionStorage.setItem("name", email.split("@")[0]); // fallback if no name returned
+        window.location.href = "/"; // Force reload to update Navbar
+      } else {
+        setErrors(json.errors || [{ msg: json.error || "Login failed" }]);
+      }
+    } catch (error) {
+      setErrors([{ msg: "Something went wrong. Please try again later." }]);
     }
   };
 
   return (
-    <div className="container">
-      <div className="login-grid">
-        <div className="login-text"><h2>Login</h2></div>
-        <div className="login-text">
-          Are you a new member? <span><a href="/signup" style={{ color: '#2190FF' }}>Sign Up Here</a></span>
-        </div>
-        <br />
-        <div className="login-form">
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input type="email" id="email" className="form-control" placeholder="Enter your email" value={email} onChange={e => setEmail(e.target.value)} />
-              {errors.email && <p className="error-text">{errors.email}</p>}
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input type="password" id="password" className="form-control" placeholder="Enter your password" value={password} onChange={e => setPassword(e.target.value)} />
-              {errors.password && <p className="error-text">{errors.password}</p>}
-            </div>
-            <div className="btn-group">
-              <button type="submit" className="btn btn-primary">Login</button>
-              <button type="reset" className="btn btn-danger" onClick={() => { setEmail(''); setPassword(''); setErrors({}); }}>Reset</button>
-            </div>
-            <br />
-            <div className="login-text">Forgot Password?</div>
-          </form>
-        </div>
-      </div>
+    <div className="login-container">
+      <form onSubmit={handleLogin}>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          required
+        />
+        <button type="submit">Login</button>
+        {errors.length > 0 && (
+          <ul style={{ color: 'red' }}>
+            {errors.map((err, idx) => (
+              <li key={idx}>{err.msg}</li>
+            ))}
+          </ul>
+        )}
+      </form>
     </div>
   );
-}
+};
 
 export default Login;
