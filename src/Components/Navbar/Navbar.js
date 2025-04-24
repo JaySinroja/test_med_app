@@ -63,6 +63,10 @@ function Navbar() {
                 <button className="btn1">Login</button>
               </Link>
             </li>
+            <li className="link">
+              <Link to="/instant">Instant Booking</Link>
+            </li>
+
           </>
         )}
       </ul>
