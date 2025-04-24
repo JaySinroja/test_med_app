@@ -116,14 +116,21 @@ const Sign_Up = () => {
             <button type="submit" className="btn1">Sign Up</button>
 
             {errors.length > 0 && (
-              <div className="err" style={{ color: 'red', marginTop: '10px' }}>
-                <ul>
-                  {errors.map((err, idx) => (
-                    <li key={idx}>{err.msg || JSON.stringify(err)}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
+  <div className="err" style={{ color: 'red', marginTop: '10px' }}>
+    <ul>
+      {errors.map((err, idx) => (
+        <li key={idx}>
+          {typeof err === 'string'
+            ? err
+            : typeof err.msg === 'string'
+            ? err.msg
+            : JSON.stringify(err)}
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
           </form>
 
           <p className="text-center mt-3">
