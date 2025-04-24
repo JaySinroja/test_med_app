@@ -15,31 +15,32 @@ const Login = () => {
 
     try {
       const response = await fetch(`${API_URL}/api/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
 
       const json = await response.json();
 
       if (response.ok && json.authtoken) {
-        sessionStorage.setItem("auth-token", json.authtoken);
-        sessionStorage.setItem("email", email);
-        sessionStorage.setItem("name", email.split("@")[0]); // fallback if no name returned
-        window.location.href = "/"; // Force reload to update Navbar
+        sessionStorage.setItem('auth-token', json.authtoken);
+        sessionStorage.setItem('email', email);
+        sessionStorage.setItem('name', email.split('@')[0]);
+
+        navigate('/');
+        window.location.reload(); // refresh to update Navbar
       } else {
-        setErrors(json.errors || [{ msg: json.error || "Login failed" }]);
+        setErrors(json.errors || [{ msg: json.error || 'Login failed' }]);
       }
     } catch (error) {
-      setErrors([{ msg: "Something went wrong. Please try again later." }]);
+      setErrors([{ msg: 'Something went wrong. Please try again later.' }]);
     }
   };
 
   return (
     <div className="login-container">
       <form onSubmit={handleLogin}>
+        <h2>Login</h2>
         <input
           type="email"
           value={email}
@@ -55,6 +56,7 @@ const Login = () => {
           required
         />
         <button type="submit">Login</button>
+
         {errors.length > 0 && (
           <ul style={{ color: 'red' }}>
             {errors.map((err, idx) => (
