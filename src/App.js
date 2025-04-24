@@ -2,16 +2,11 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 
+// Import your components
+import Navbar from './components/Navbar/Navbar';
+import Landing_Page from './components/Landing_Page/Landing_Page';
 import Sign_Up from './components/Sign_Up/Sign_Up';
 import Login from './components/Login/Login';
-
-<Routes>
-  <Route path="/" element={<Landing_Page />} />
-  <Route path="/signup" element={<Sign_Up />} />
-  <Route path="/login" element={<Login />} />
-</Routes>
-
-
 
 function App() {
   return (
@@ -19,7 +14,8 @@ function App() {
       <Navbar /> {/* Navbar stays visible on all pages */}
       <Routes>
         <Route path="/" element={<Landing_Page />} />
-        {/* You can add more routes later like Sign_Up, Login, etc. */}
+        <Route path="/signup" element={<Sign_Up />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
