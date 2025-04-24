@@ -32,9 +32,9 @@ const Sign_Up = () => {
 
     try {
       const response = await fetch(`${API_URL}/api/auth/register`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ name, email, phone, password }),
       });
@@ -42,18 +42,20 @@ const Sign_Up = () => {
       const json = await response.json();
 
       if (response.ok && json.authtoken) {
-        sessionStorage.setItem("auth-token", json.authtoken);
-        sessionStorage.setItem("name", name);
-        sessionStorage.setItem("phone", phone);
-        sessionStorage.setItem("email", email);
+        sessionStorage.setItem('auth-token', json.authtoken);
+        sessionStorage.setItem('name', name);
+        sessionStorage.setItem('phone', phone);
+        sessionStorage.setItem('email', email);
 
-        navigate("/");
+        navigate('/');
         window.location.reload();
       } else {
-        setErrors(json.errors || [{ msg: json.error || "Registration failed" }]);
+        // Fix: Properly handle both array of errors and single error string
+        const serverErrors = json.errors || [{ msg: json.error || 'Registration failed' }];
+        setErrors(serverErrors);
       }
     } catch (error) {
-      setErrors([{ msg: "Something went wrong. Please try again later." }]);
+      setErrors([{ msg: 'Something went wrong. Please try again later.' }]);
     }
   };
 
@@ -117,7 +119,7 @@ const Sign_Up = () => {
               <div className="err" style={{ color: 'red', marginTop: '10px' }}>
                 <ul>
                   {errors.map((err, idx) => (
-                    <li key={idx}>{err.msg}</li>
+                    <li key={idx}>{err.msg || JSON.stringify(err)}</li>
                   ))}
                 </ul>
               </div>
