@@ -21,6 +21,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/instant" element={<InstantConsultation />} />
         <Route path="/find-doctor" element={<FindDoctorSearch />} />
+        <Route path="/notification" element={<Notification />} />
+
         <Route
           path="/doctor-card"
           element={
