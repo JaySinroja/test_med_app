@@ -11,17 +11,11 @@ import InstantConsultation from './components/InstantConsultationBooking/Instant
 import FindDoctorSearch from './components/FindDoctorSearch/FindDoctorSearch';
 import DoctorCard from './components/DoctorCard/DoctorCard';
 
-const sampleDoctor = {
-  name: "Dr. Meera Singh",
-  speciality: "Dermatologist",
-  experience: 12,
-  ratings: "4.9",
-  profilePic: "" // Optional
-};
 
 
 function App() {
   return (
+    
     <BrowserRouter>
       <Navbar /> {/* Navbar stays visible on all pages */}
       <Routes>
@@ -31,10 +25,20 @@ function App() {
         <Route path="/instant" element={<InstantConsultation />} /> {/*  NEW ROUTE */}
         <Route path="/find-doctor" element={<FindDoctorSearch />} />
         <Route path="/doctor-card" element={<DoctorCard {...sampleDoctor} />} />
+        <div>
+      <DoctorCard
+        name="Dr. Aisha Khan"
+        speciality="Neurologist"
+        experience={10}
+        ratings="4.8"
+      />
+    </div>
 
       </Routes>
     </BrowserRouter>
+    
   );
+  
 }
 
 export default App;
