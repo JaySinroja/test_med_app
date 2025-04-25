@@ -3,21 +3,32 @@ import React, { useState } from 'react'
 const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [selectedSlot, setSelectedSlot] = useState(null);
-  
-    const handleSlotSelection = (slot) => {
-      setSelectedSlot(slot);
-    };
-  
+
     const handleFormSubmit = (e) => {
       e.preventDefault();
-      onSubmit({ name, phoneNumber });
+
+      // Save Doctor Data
+      const doctorData = {
+        doctorName,
+        doctorSpeciality,
+      };
+      localStorage.setItem('doctorData', JSON.stringify(doctorData));
+
+      // Save Appointment Data
+      const appointmentData = {
+        name,
+        phoneNumber,
+      };
+      localStorage.setItem(doctorName, JSON.stringify(appointmentData));
+
+      onSubmit(appointmentData);
+
       setName('');
       setPhoneNumber('');
     };
+
     console.log("Rendering AppointmentForm");
 
-  
     return (
       <form onSubmit={handleFormSubmit} className="appointment-form">
         <div className="form-group">
@@ -42,8 +53,8 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
         </div>
         <button type="submit">Book Now</button>
       </form>
-      
     );
-  };
+};
 
-export default AppointmentForm
+export default AppointmentForm;
+a
