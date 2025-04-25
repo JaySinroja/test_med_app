@@ -15,6 +15,8 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
       setName('');
       setPhoneNumber('');
     };
+    console.log("Rendering AppointmentForm");
+
   
     return (
       <form onSubmit={handleFormSubmit} className="appointment-form">
@@ -40,6 +42,7 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
         </div>
         <button type="submit">Book Now</button>
       </form>
+      
     );
   };
 
