@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 
-// Import your components
 import Navbar from './components/Navbar/Navbar';
 import Landing_Page from './components/Landing_Page/Landing_Page';
 import Sign_Up from './components/Sign_Up/Sign_Up';
@@ -24,15 +23,30 @@ function App() {
         <Route path="/find-doctor" element={<FindDoctorSearch />} />
         <Route path="/notification" element={<Notification />} />
 
+        {/* One page with 3 DoctorCards */}
         <Route
-          path="/doctor-card"
+          path="/doctors-card"
           element={
-            <DoctorCard
-              name="Dr. Aisha Khan"
-              speciality="Neurologist"
-              experience={10}
-              ratings="4.8"
-            />
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px', padding: '20px' }}>
+              <DoctorCard
+                name="Dr. Aisha Khan"
+                speciality="Neurologist"
+                experience={10}
+                ratings="4.8"
+              />
+              <DoctorCard
+                name="Dr. Rohit Sharma"
+                speciality="Cardiologist"
+                experience={15}
+                ratings="4.6"
+              />
+              <DoctorCard
+                name="Dr. Sneha Mehta"
+                speciality="Dermatologist"
+                experience={8}
+                ratings="4.9"
+              />
+            </div>
           }
         />
       </Routes>
