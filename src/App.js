@@ -11,6 +11,13 @@ import InstantConsultation from './components/InstantConsultationBooking/Instant
 import FindDoctorSearch from './components/FindDoctorSearch/FindDoctorSearch';
 import DoctorCard from './components/DoctorCard/DoctorCard';
 
+const sampleDoctor = {
+  name: "Dr. Meera Singh",
+  speciality: "Dermatologist",
+  experience: 12,
+  ratings: "4.9",
+  profilePic: "" // Optional
+};
 
 
 function App() {
