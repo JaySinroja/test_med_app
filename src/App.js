@@ -9,7 +9,7 @@ import Sign_Up from './components/Sign_Up/Sign_Up';
 import Login from './components/Login/Login';
 import InstantConsultation from './components/InstantConsultationBooking/InstantConsultation'; //  NEW IMPORT
 import FindDoctorSearch from './components/FindDoctorSearch/FindDoctorSearch';
-import DoctorCard from './components/DoctorCardIC/DoctorCard';
+import DoctorCard from './components/DoctorCard/DoctorCard';
 
 const sampleDoctor = {
   name: "Dr. Meera Singh",
