@@ -1,13 +1,12 @@
-// src/components/Notification/Notification.js
 import React, { useEffect, useState } from 'react';
 import './Notification.css';
 import Navbar from '../Navbar/Navbar';
 
 const Notification = ({ children }) => {
     const [appointmentData, setAppointmentData] = useState(null);
+    const [loading, setLoading] = useState(true);  // 🔥 new loading state
 
     useEffect(() => {
-        // Doctor info and appointment info stored in localStorage
         const storedDoctor = JSON.parse(localStorage.getItem('doctorData'));
         const storedAppointment = storedDoctor
             ? JSON.parse(localStorage.getItem(storedDoctor.name))
@@ -22,6 +21,7 @@ const Notification = ({ children }) => {
                 time: storedAppointment.time
             });
         }
+        setLoading(false);   // 🔥 mark loading complete
     }, []);
 
     const handleCancel = () => {
@@ -36,7 +36,11 @@ const Notification = ({ children }) => {
             <Navbar />
             {children}
 
-            {appointmentData && (
+            {loading ? (
+                <div style={{ textAlign: 'center', marginTop: '50px' }}>
+                    <h2>Loading...</h2>  {/* optional */}
+                </div>
+            ) : appointmentData ? (
                 <div className="appointment-notification">
                     <h3>Appointment Confirmed ✅</h3>
                     <p><strong>Doctor:</strong> {appointmentData.doctor}</p>
@@ -46,13 +50,11 @@ const Notification = ({ children }) => {
                     <p><strong>Time:</strong> {appointmentData.time}</p>
                     <button onClick={handleCancel} className="cancel-btn">Cancel Appointment</button>
                 </div>
-            )}
-            {!appointmentData && (
+            ) : (
                 <div style={{ textAlign: 'center', marginTop: '50px' }}>
                     <h2>No Appointments Found</h2>
                 </div>
             )}
-
         </div>
     );
 };
