@@ -18,14 +18,29 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
     setAppointments(updatedAppointments);
   };
 
-  const handleFormSubmit = (appointmentData) => {
-    const newAppointment = {
-      id: uuidv4(),
-      ...appointmentData,
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+  
+    // Save Doctor Data
+    const doctorData = {
+      doctorName,
+      doctorSpeciality,
     };
-    setAppointments([...appointments, newAppointment]);
-    setShowModal(false);
+    localStorage.setItem('doctorData', JSON.stringify(doctorData));
+  
+    // Save Appointment Data
+    const appointmentData = {
+      name,
+      phoneNumber,
+    };
+    localStorage.setItem(doctorName, JSON.stringify(appointmentData));
+  
+    onSubmit(appointmentData);
+  
+    setName('');
+    setPhoneNumber('');
   };
+  
 
   return (
     <div className="doctor-card-container">
