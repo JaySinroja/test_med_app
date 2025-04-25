@@ -13,44 +13,55 @@ import Notification from './components/Notification/Notification';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Landing_Page />} />
-        <Route path="/signup" element={<Sign_Up />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/instant" element={<InstantConsultation />} />
-        <Route path="/find-doctor" element={<FindDoctorSearch />} />
-        <Route path="/notification" element={<Notification />} />
+    <div className="App">
+      <BrowserRouter>
+        <Notification>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Landing_Page />} />
+            <Route path="/signup" element={<Sign_Up />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/instant" element={<InstantConsultation />} />
+            <Route path="/find-doctor" element={<FindDoctorSearch />} />
 
-        {/* One page with 3 DoctorCards */}
-        <Route
-          path="/doctor-card"
-          element={
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px', padding: '20px' }}>
-              <DoctorCard
-                name="Dr. Aisha Khan"
-                speciality="Neurologist"
-                experience={10}
-                ratings="4.8"
-              />
-              <DoctorCard
-                name="Dr. Rohit Sharma"
-                speciality="Cardiologist"
-                experience={15}
-                ratings="4.6"
-              />
-              <DoctorCard
-                name="Dr. Sneha Mehta"
-                speciality="Dermatologist"
-                experience={8}
-                ratings="4.9"
-              />
-            </div>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+            {/* One page with 3 DoctorCards */}
+            <Route
+              path="/doctor-card"
+              element={
+                <div
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                    gap: '20px',
+                    padding: '20px'
+                  }}
+                >
+                  <DoctorCard
+                    name="Dr. Aisha Khan"
+                    speciality="Neurologist"
+                    experience={10}
+                    ratings="4.8"
+                  />
+                  <DoctorCard
+                    name="Dr. Rohit Sharma"
+                    speciality="Cardiologist"
+                    experience={15}
+                    ratings="4.6"
+                  />
+                  <DoctorCard
+                    name="Dr. Sneha Mehta"
+                    speciality="Dermatologist"
+                    experience={8}
+                    ratings="4.9"
+                  />
+                </div>
+              }
+            />
+          </Routes>
+        </Notification>
+      </BrowserRouter>
+    </div>
   );
 }
 
