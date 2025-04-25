@@ -94,7 +94,7 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
                   ))}
                 </>
               ) : (
-                <AppointmentFormIC doctorName={name} doctorSpeciality={speciality} onSubmit={handleFormSubmit} />
+                <AppointmentForm doctorName={name} doctorSpeciality={speciality} onSubmit={handleFormSubmit} />
               )}
             </div>
           )}
