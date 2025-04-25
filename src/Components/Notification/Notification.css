@@ -1,0 +1,35 @@
+.notification-container {
+    background-color: #f0f4ff;
+    border: 2px solid #3a7afe;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .notification-content h3 {
+    color: #3a7afe;
+    margin-bottom: 12px;
+  }
+  
+  .notification-content p {
+    margin: 5px 0;
+    font-size: 16px;
+  }
+  
+  .cancel-button {
+    margin-top: 15px;
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .cancel-button:hover {
+    background-color: #d9363e;
+  }
+  
