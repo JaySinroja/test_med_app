@@ -30,7 +30,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/instant" element={<InstantConsultation />} /> {/*  NEW ROUTE */}
         <Route path="/find-doctor" element={<FindDoctorSearch />} />
-        <Route path="/doctor-card" element={<DoctorCard doctor={sampleDoctor} />} />
+        <Route path="/doctor-card" element={<DoctorCard {...sampleDoctor} />} />
+
       </Routes>
     </BrowserRouter>
   );
