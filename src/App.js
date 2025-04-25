@@ -10,6 +10,7 @@ import Login from './components/Login/Login';
 import InstantConsultation from './components/InstantConsultationBooking/InstantConsultation';
 import FindDoctorSearch from './components/FindDoctorSearch/FindDoctorSearch';
 import DoctorCard from './components/DoctorCard/DoctorCard';
+import Notification from './components/Notification/Notification';
 
 function App() {
   return (
