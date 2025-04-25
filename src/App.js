@@ -9,6 +9,7 @@ import Sign_Up from './components/Sign_Up/Sign_Up';
 import Login from './components/Login/Login';
 import InstantConsultation from './components/InstantConsultationBooking/InstantConsultation'; //  NEW IMPORT
 import FindDoctorSearch from './components/FindDoctorSearch/FindDoctorSearch';
+import DoctorCard from './components/DoctorCard/DoctorCard';
 
 
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/instant" element={<InstantConsultation />} /> {/*  NEW ROUTE */}
         <Route path="/find-doctor" element={<FindDoctorSearch />} />
+        <Route path="/doctor-card" element={<DoctorCard doctor={sampleDoctor} />} />
       </Routes>
     </BrowserRouter>
   );
