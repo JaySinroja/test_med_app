@@ -10,6 +10,7 @@ import InstantConsultation from './components/InstantConsultationBooking/Instant
 import FindDoctorSearch from './components/FindDoctorSearch/FindDoctorSearch';
 import DoctorCard from './components/DoctorCard/DoctorCard';
 import Notification from './components/Notification/Notification';
+import ReviewForm from './components/ReviewForm/ReviewForm'; // <-- Import ReviewForm
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/instant" element={<InstantConsultation />} />
             <Route path="/find-doctor" element={<FindDoctorSearch />} />
+            <Route path="/review-form" element={<ReviewForm />} /> {/* <-- Add ReviewForm route */}
 
             {/* One page with 3 DoctorCards */}
             <Route
